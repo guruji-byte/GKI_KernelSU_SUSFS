@@ -32,6 +32,11 @@ on:
         required: true
         type: boolean
         default: true
+      BBG:
+        description: 'Enable kernel-level blocking of illegal writes to critical partitions/device nodes (LSM)?'
+        required: true
+        type: boolean
+        default: false
   
 jobs:
   build-kernel-a13-5-15-kernelsu-susfs:
