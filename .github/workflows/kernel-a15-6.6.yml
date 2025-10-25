@@ -32,6 +32,11 @@ on:
         required: false
         type: boolean
         default: false
+      BBG:
+        description: 'Enable kernel-level blocking of illegal writes to critical partitions/device nodes (LSM)?'
+        required: true
+        type: boolean
+        default: false
       supp_op:
         description: '是否开启一加8E处理器机型支持?(非该机型无须勾)'
         required: false
