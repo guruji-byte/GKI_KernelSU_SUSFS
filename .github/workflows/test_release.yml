@@ -262,8 +262,7 @@ jobs:
         -> Futile hiding for jit-zygote-cache detection
         -> Wireguard Support
         -> BBR Support
-        ${{ inputs.BBG && '-> BBG Support' || '' }}
-        -> BBG ${{ inputs.BBG && 'supported' || 'not supported' }}
+        ${{ inputs.BBG && '-> BBG Support (supported)' || '-> BBG not supported' }}  
         ${{ inputs.use_kpm && '-> KPM Support' || '' }}
         -> **LZ4KD&ONEPLUS_LZ4K** ${{ inputs.use_zram && 'supported' || 'not supported' }}
          
