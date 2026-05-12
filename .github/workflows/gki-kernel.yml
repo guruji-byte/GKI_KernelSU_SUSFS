@@ -357,6 +357,20 @@ jobs:
               sed -i -e '/int ret = 0, copied = 0;/a \\tunsigned int nr_subpages \= __PAGE_SIZE \/ PAGE_SIZE;' -e '/int ret = 0, copied = 0;/a \\tpagemap_entry_t \*res = NULL;' ./fs/proc/task_mmu.c
               fake_patched=1
             fi
+            if ! grep -qxF '#include <linux/dma-buf.h>' ./fs/proc/base.c; then
+              echo "未找到 #include <linux/dma-buf.h>，添加缺失的头文件"
+              sed -i '/#include <linux\/cpufreq_times.h>/a #include <linux\/dma-buf.h>' ./fs/proc/base.c
+            fi
+          fi
+          if [ "$FORMATTED_BRANCH" = "android14-6.1" ]; then
+            if ! grep -qxF $'\tif (!vma_pages(vma))' ./fs/proc/task_mmu.c; then
+              echo "未找到 vma_pages，正在进行补丁修复"
+              fake_patched=1
+            fi
+            if ! grep -qxF '#include <linux/dma-buf.h>' ./fs/proc/base.c; then
+              echo "未找到 #include <linux/dma-buf.h>，添加缺失的头文件"
+              sed -i '/#include <linux\/cpufreq_times.h>/a #include <linux\/dma-buf.h>' ./fs/proc/base.c
+            fi
           fi
 
           if [ "$FORMATTED_BRANCH" = "android12-5.10" ] || [ "$FORMATTED_BRANCH" = "android13-5.10" ] || [ "$FORMATTED_BRANCH" = "android13-5.15" ]; then
@@ -373,8 +387,8 @@ jobs:
               fi
             fi
 
-            if [ "$FORMATTED_BRANCH" = "android12-5.10" ] || [ "$FORMATTED_BRANCH" = "android13-5.10" ] || [ "$FORMATTED_BRANCH" = "android13-5.15" ]; then
-              if grep -qxF $'\t\tgoto show_pad;' ./fs/proc/task_mmu.c; then
+            if [ "$FORMATTED_BRANCH" = "android12-5.10" ] || [ "$FORMATTED_BRANCH" = "android13-5.10" ] || [ "$FORMATTED_BRANCH" = "android13-5.15" ] || [ "$FORMATTED_BRANCH" = "android14-6.1" ]; then
+              if grep -q 'goto[[:space:]]\+show_pad;' ./fs/proc/task_mmu.c; then
                 sed -i -e 's/goto show_pad;/return 0;/' ./fs/proc/task_mmu.c
               fi
             fi
