@@ -268,8 +268,10 @@ jobs:
          
         <details>
         <summary>Notes:</summary>
+        
         - -> In SUS SU Mode 2, it will show as disabled or incompatible, the reason is that non-kprobe hooks were used (when compiling the kernel), and non-kprobe hooks are no longer needed!
-        - -> In the latest version of susfs, flashing AK3 compressed package with Kernel Flasher will brick your device, try [Horizon Kernel Flasher]\(https://github.com/libxzr/HorizonKernelFlasher)!
+        - -> In the latest version of susfs, flashing AK3 compressed package with Kernel Flasher will brick your device, try [Horizon Kernel Flasher](https://github.com/libxzr/HorizonKernelFlasher)!
+        
         </details>
         
         Modules:
@@ -358,7 +360,7 @@ jobs:
             git clone https://github.com/SukiSU-Ultra/SukiSU-Ultra.git suki-tmp
             cd suki-tmp
             KSU_GIT_VERSION=$(git rev-list --count HEAD)
-            KSU_VERSION=$((10000 + KSU_GIT_VERSION + 700))
+            KSU_VERSION=$((4 * 10000 + KSU_GIT_VERSION - 2815))
             echo "SukiSU version: $KSU_VERSION"
             cd ..
             rm -rf suki-tmp
